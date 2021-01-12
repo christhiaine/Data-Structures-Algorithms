@@ -1,0 +1,49 @@
+// Merge sort is really hard to implement and wrap your head around it especially
+// if you're not comfortable with recursion. You're likely not to be asked to implement 
+// this in interviews but you might be asked how its implemented (divide & conquer, complexities
+// ..etc)
+
+
+
+const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+
+function mergeSort (array) {
+  if (array.length === 1) {
+    return array
+  }
+  // Split Array in into right and left
+  const length = array.length;
+  const middle = Math.floor(length / 2)
+  const left = array.slice(0, middle) 
+  const right = array.slice(middle)
+  // console.log('left:', left);
+  // console.log('right:', right);
+
+  
+  return merge(
+    mergeSort(left),
+    mergeSort(right)
+  )
+}
+
+function merge(left, right){
+  const result = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+  while(leftIndex < left.length && 
+        rightIndex < right.length){
+     if(left[leftIndex] < right[rightIndex]){
+       result.push(left[leftIndex]);
+       leftIndex++;
+     } else{
+       result.push(right[rightIndex]);
+       rightIndex++
+    }
+  }  
+  // console.log(left, right)
+  return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
+
+const answer = mergeSort(numbers);
+console.log(answer);
