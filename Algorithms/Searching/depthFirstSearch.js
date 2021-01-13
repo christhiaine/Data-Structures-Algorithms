@@ -1,8 +1,17 @@
+// We will use our BST implementation and add a DFS method in it for this.
+// There are three ways to implement this i.e: inorder, preorder, postorder
+// See the three types of implementing DFS results below under the type of tree
+
+
+
 //The type of tree we want to make here...
 
 //          9
 //    4           20
 //  1   6      15    170
+// InOrder - [1, 4, 6, 9, 15, 20, 170]
+//PreOrder - [9, 4, 1, 6, 20, 15, 170]
+//PostOrder - [1, 6, 4, 15, 170, 20, 9]
 
 
 
@@ -146,9 +155,57 @@ class BinarySearchTree {
           }
         }
       }
+      //we're using recursion as its simple to do so
+    DFSInorder() {
+        return traverseInOrder(this.root, []); //This will be our recursive function
+    }
+
+    DFSPreorder() {
+        return traversePreOrder(this.root, []); //This will be our recursive function
+    }
+
+    DFSIPostorder() {
+        return traversePostOrder(this.root, []); //This will be our recursive function
+    }
 
 
 }
+
+
+function traverseInOrder(node, list) {
+    if(node.left) {
+        traverseInOrder(node.left, list)
+    }
+    list.push(node.value);
+    if(node.right) {
+        traverseInOrder(node.right, list)
+    }
+    return list;
+}
+
+function traversePreOrder(node, list) {
+    list.push(node.value);
+    if(node.left) {
+        traversePreOrder(node.left, list)
+    }
+    if(node.right) {
+        traversePreOrder(node.right, list)
+    }
+    return list;
+}
+
+function traversePostOrder(node, list) {
+    if(node.left) {
+        traversePostOrder(node.left, list)
+    }
+    if(node.right) {
+        traversePostOrder(node.right, list)
+    }
+    list.push(node.value);
+    return list;
+}
+
+
 
 const tree = new BinarySearchTree();
 tree.insert(9);
@@ -158,7 +215,10 @@ tree.insert(20);
 tree.insert(170);
 tree.insert(15);
 tree.insert(1);
-tree.lookup(9)
+tree.lookup(9);
+console.log(tree.DFSInorder());
+console.log(tree.DFSPreorder());
+console.log(tree.DFSIPostorder());
 
 // JSON.stringify(traverse(tree.root));
 

@@ -1,3 +1,7 @@
+// We will use our BST implementation and add a BFS method in it for this..
+
+
+
 //The type of tree we want to make here...
 
 //          9
@@ -147,6 +151,44 @@ class BinarySearchTree {
         }
       }
 
+    breadthFirstSearch() {
+        //will need 3 things
+        let currentNode = this.root;
+        let list = []; //actual answer, an array we insert our numbers into in the order of BFS
+        let queue = []; //we'll use an array,to keep track of the level we are at so that we can access the children once we go through it
+        queue.push(currentNode);
+
+        while(queue.length > 0) {
+            currentNode = queue.shift(); //shift simply returns and removes the first item in the queue
+            list.push(currentNode.value);
+            if(currentNode.left) {
+                queue.push(currentNode.left);
+            }
+            if(currentNode.right) {
+                queue.push(currentNode.right);
+            }
+        }
+        return list;
+    }
+
+    // below is for fun, we will implement BFS with recursion ..the above BFS implementation is how its usually implemented.
+    
+    breadthFirstSearchR(queue, list) {
+        // base case
+        if(!queue.length) {
+            return list;
+        }
+
+        let currentNode = queue.shift();
+        list.push(currentNode.value);
+        if(currentNode.left) {
+            queue.push(currentNode.left);
+        }
+        if(currentNode.right) {
+            queue.push(currentNode.right);
+        }
+        return this.breadthFirstSearchR(queue, list);
+    }
 
 }
 
@@ -159,6 +201,9 @@ tree.insert(170);
 tree.insert(15);
 tree.insert(1);
 tree.lookup(9)
+tree.breadthFirstSearch();
+tree.breadthFirstSearchR([tree.root], []);
+
 
 // JSON.stringify(traverse(tree.root));
 
